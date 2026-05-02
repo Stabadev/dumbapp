@@ -1,0 +1,27 @@
+services:
+  app:
+    build: .
+    container_name: dumbapp-next
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://dumbapp:dumbapp_password@postgres:5432/dumbapp
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16
+    container_name: dumbapp-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dumbapp
+      POSTGRES_PASSWORD: dumbapp_password
+      POSTGRES_DB: dumbapp
+    ports:
+      - "5432:5432"
+    volumes:
+      - dumbapp_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  dumbapp_postgres_data:
