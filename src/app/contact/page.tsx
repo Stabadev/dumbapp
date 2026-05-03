@@ -60,12 +60,15 @@ export default function ContactPage() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-6">
-      <Link href="/" className="text-sm text-gray-500 hover:text-gray-900">
+    <main className="flex min-h-screen flex-col items-center justify-center gap-6 px-4 py-8 sm:px-6">
+      <Link
+        href="/"
+        className="text-sm text-gray-500 hover:text-gray-900"
+      >
         ← Retour à l&apos;accueil
       </Link>
 
-      <h1 className="text-3xl font-bold">Contact</h1>
+      <h1 className="text-3xl font-bold sm:text-4xl">Contact</h1>
 
       <form
         onSubmit={handleSubmit}
@@ -76,9 +79,11 @@ export default function ContactPage() {
             name="name"
             type="text"
             placeholder="Nom"
-            className="border p-2 rounded"
+            className="rounded border px-3 py-2 text-base"
           />
-          {errors.name && <p className="text-sm text-red-600">{errors.name[0]}</p>}
+          {errors.name && (
+            <p className="text-sm text-red-600">{errors.name[0]}</p>
+          )}
         </div>
 
         <div className="flex flex-col gap-1">
@@ -86,7 +91,7 @@ export default function ContactPage() {
             name="email"
             type="email"
             placeholder="Email"
-            className="border p-2 rounded"
+            className="rounded border px-3 py-2 text-base"
           />
           {errors.email && (
             <p className="text-sm text-red-600">{errors.email[0]}</p>
@@ -97,7 +102,7 @@ export default function ContactPage() {
           <textarea
             name="message"
             placeholder="Message"
-            className="border p-2 rounded"
+            className="min-h-32 rounded border px-3 py-2 text-base"
           />
           {errors.message && (
             <p className="text-sm text-red-600">{errors.message[0]}</p>
@@ -106,7 +111,7 @@ export default function ContactPage() {
 
         <button
           disabled={loading}
-          className="bg-black text-white p-2 rounded disabled:opacity-50"
+          className="rounded bg-black px-4 py-3 text-white disabled:opacity-50 sm:py-2"
         >
           {loading ? "Envoi..." : "Envoyer"}
         </button>

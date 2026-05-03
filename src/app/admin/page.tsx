@@ -20,12 +20,17 @@ export default async function AdminPage() {
   }));
 
   return (
-    <main className="min-h-screen p-8">
-      <Link href="/" className="mb-4 inline-block text-sm text-gray-500 hover:text-gray-900">
+    <main className="min-h-screen px-4 py-6 sm:px-6 lg:px-8">
+      <Link
+        href="/"
+        className="mb-4 inline-block text-sm text-gray-500 hover:text-gray-900"
+      >
         ← Retour à l&apos;accueil
       </Link>
 
-      <h1 className="mb-6 text-3xl font-bold">Admin — demandes</h1>
+      <h1 className="mb-6 text-2xl font-bold sm:text-3xl">
+        Admin — demandes
+      </h1>
       <AdminRequestsClient initialRequests={initialRequests} />
     </main>
   );
