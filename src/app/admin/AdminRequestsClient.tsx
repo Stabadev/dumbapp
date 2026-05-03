@@ -16,10 +16,31 @@ type AdminRequestsClientProps = {
 };
 
 const statuses = [
-  { value: "NOUVEAU", label: "Nouveau", className: "bg-gray-200" },
-  { value: "EN_COURS", label: "En cours", className: "bg-yellow-200" },
-  { value: "TERMINE", label: "Terminé", className: "bg-green-200" },
+  {
+    value: "NOUVEAU",
+    label: "Nouveau",
+    className:
+      "border-slate-200 bg-slate-100 text-slate-700 hover:bg-slate-200",
+  },
+  {
+    value: "EN_COURS",
+    label: "En cours",
+    className:
+      "border-amber-200 bg-amber-100 text-amber-800 hover:bg-amber-200",
+  },
+  {
+    value: "TERMINE",
+    label: "Terminé",
+    className:
+      "border-emerald-200 bg-emerald-100 text-emerald-800 hover:bg-emerald-200",
+  },
 ] as const;
+
+const statusStyles: Record<string, string> = {
+  NOUVEAU: "border-slate-200 bg-slate-100 text-slate-700",
+  EN_COURS: "border-amber-200 bg-amber-100 text-amber-800",
+  TERMINE: "border-emerald-200 bg-emerald-100 text-emerald-800",
+};
 
 function formatDate(date: string) {
   return new Intl.DateTimeFormat("fr-FR", {
@@ -61,7 +82,7 @@ export default function AdminRequestsClient({
           type="button"
           key={status.value}
           onClick={() => updateStatus(requestId, status.value)}
-          className={`rounded px-3 py-2 text-sm leading-none md:px-2 md:py-1 ${status.className}`}
+          className={`rounded-full border px-3 py-2 text-sm font-semibold leading-none transition hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-emerald-100 md:px-2.5 md:py-1.5 ${status.className}`}
         >
           {status.label}
         </button>
@@ -71,7 +92,7 @@ export default function AdminRequestsClient({
 
   if (requests.length === 0) {
     return (
-      <p className="rounded border border-dashed p-4 text-sm text-gray-600">
+      <p className="rounded-2xl border border-dashed border-emerald-300 bg-white/70 p-5 text-sm font-medium text-[#58685f] shadow-sm backdrop-blur">
         Aucune demande pour le moment.
       </p>
     );
@@ -81,23 +102,33 @@ export default function AdminRequestsClient({
     <>
       <div className="flex flex-col gap-4 md:hidden">
         {requests.map((request) => (
-          <article key={request.id} className="rounded-lg border p-4">
+          <article
+            key={request.id}
+            className="rounded-2xl border border-white/70 bg-white/80 p-4 shadow-lg shadow-emerald-950/5 backdrop-blur"
+          >
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <h2 className="truncate font-bold">{request.name}</h2>
-                <p className="break-words text-sm text-gray-600">
+                <h2 className="truncate font-bold text-[#17211c]">
+                  {request.name}
+                </h2>
+                <p className="break-words text-sm text-[#58685f]">
                   {request.email}
                 </p>
               </div>
-              <span className="shrink-0 rounded bg-gray-100 px-2 py-1 text-xs font-medium">
+              <span
+                className={`shrink-0 rounded-full border px-2.5 py-1 text-xs font-bold ${
+                  statusStyles[request.status] ??
+                  "border-slate-200 bg-slate-100 text-slate-700"
+                }`}
+              >
                 {request.status}
               </span>
             </div>
 
-            <p className="mt-3 text-xs text-gray-500">
+            <p className="mt-3 text-xs font-medium text-[#7a887f]">
               {formatDate(request.createdAt)}
             </p>
-            <p className="mt-2 break-words text-sm leading-6">
+            <p className="mt-2 break-words text-sm leading-6 text-[#29372f]">
               {request.message}
             </p>
 
@@ -106,9 +137,9 @@ export default function AdminRequestsClient({
         ))}
       </div>
 
-      <div className="hidden overflow-hidden rounded-lg border md:block">
+      <div className="hidden overflow-hidden rounded-2xl border border-white/70 bg-white/80 shadow-xl shadow-emerald-950/5 backdrop-blur md:block">
         <table className="w-full table-fixed text-left text-sm">
-          <thead className="bg-gray-50 text-xs uppercase text-gray-500">
+          <thead className="bg-[#edf5ef] text-xs uppercase tracking-[0.08em] text-[#58685f]">
             <tr>
               <th className="w-1/6 px-4 py-3 font-medium">Nom</th>
               <th className="w-1/5 px-4 py-3 font-medium">Email</th>
@@ -118,24 +149,29 @@ export default function AdminRequestsClient({
               <th className="w-64 px-4 py-3 font-medium">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y">
+          <tbody className="divide-y divide-[#e4ebe3]">
             {requests.map((request) => (
-              <tr key={request.id}>
+              <tr key={request.id} className="transition hover:bg-emerald-50/60">
                 <td className="px-4 py-4 font-medium align-top">
                   <span className="block truncate">{request.name}</span>
                 </td>
-                <td className="px-4 py-4 align-top text-gray-600">
+                <td className="px-4 py-4 align-top text-[#58685f]">
                   <span className="block break-words">{request.email}</span>
                 </td>
-                <td className="px-4 py-4 align-top">
+                <td className="px-4 py-4 align-top text-[#29372f]">
                   <p className="line-clamp-3 break-words">{request.message}</p>
                 </td>
                 <td className="px-4 py-4 align-top">
-                  <span className="rounded bg-gray-100 px-2 py-1 text-xs font-medium">
+                  <span
+                    className={`rounded-full border px-2.5 py-1 text-xs font-bold ${
+                      statusStyles[request.status] ??
+                      "border-slate-200 bg-slate-100 text-slate-700"
+                    }`}
+                  >
                     {request.status}
                   </span>
                 </td>
-                <td className="px-4 py-4 align-top text-gray-600">
+                <td className="px-4 py-4 align-top text-[#58685f]">
                   {formatDate(request.createdAt)}
                 </td>
                 <td className="px-4 py-4 align-top">
