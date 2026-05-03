@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import {
   contactRequestSchema,
@@ -60,6 +61,10 @@ export default function ContactPage() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-6">
+      <Link href="/" className="text-sm text-gray-500 hover:text-gray-900">
+        ← Retour à l&apos;accueil
+      </Link>
+
       <h1 className="text-3xl font-bold">Contact</h1>
 
       <form

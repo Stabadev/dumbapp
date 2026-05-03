@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import AdminRequestsClient, {
   type ContactRequestItem,
@@ -17,6 +18,10 @@ export default async function AdminPage() {
 
   return (
     <main className="min-h-screen p-8">
+      <Link href="/" className="mb-4 inline-block text-sm text-gray-500 hover:text-gray-900">
+        ← Retour à l&apos;accueil
+      </Link>
+
       <h1 className="mb-6 text-3xl font-bold">Admin — demandes</h1>
       <AdminRequestsClient initialRequests={initialRequests} />
     </main>
