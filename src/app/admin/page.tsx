@@ -1,10 +1,13 @@
 import Link from "next/link";
+import { connection } from "next/server";
 import { prisma } from "@/lib/prisma";
 import AdminRequestsClient, {
   type ContactRequestItem,
 } from "./AdminRequestsClient";
 
 export default async function AdminPage() {
+  await connection();
+
   const requests = await prisma.contactRequest.findMany({
     orderBy: { createdAt: "desc" },
   });
